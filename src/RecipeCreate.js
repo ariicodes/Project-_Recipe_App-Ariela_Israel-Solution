@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import RecipeData from './RecipeData';
 
 function RecipeCreate({ recipes, setRecipes }) {
 	// TODO: When the form is submitted, a new recipe should be created, and the form contents cleared.
@@ -26,9 +25,7 @@ function RecipeCreate({ recipes, setRecipes }) {
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		setFormData(e.target.value);
 		setRecipes([
-			...RecipeData,
 			...recipes,
 			{
 				name: formData.name,
@@ -38,11 +35,14 @@ function RecipeCreate({ recipes, setRecipes }) {
 				preparation: formData.preparation,
 			},
 		]);
-		setFormData(...initialState);
+		setFormData(initialState);
 	};
 
 	return (
-		<form name='create'>
+		<form
+			name='create'
+			onSubmit={handleSubmit}
+		>
 			<table>
 				<tbody>
 					<tr>
@@ -95,12 +95,7 @@ function RecipeCreate({ recipes, setRecipes }) {
 							></textarea>
 						</td>
 						<td>
-							<button
-								type='submit'
-								onSubmit={handleSubmit}
-							>
-								Create
-							</button>
+							<button type='submit'>Create</button>
 						</td>
 					</tr>
 				</tbody>
